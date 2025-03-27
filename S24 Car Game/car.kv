@@ -1,0 +1,95 @@
+#:kivy 2.0.0
+# ref: https://kivy.org/docs/tutorials/pong.html
+
+<Car>:
+    size: 20, 10
+    origin: 10, 5
+    canvas.before:
+        Color:
+            rgba: 0.8, 0.2, 0.2, 1  # Red color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            
+    # Sensor lines
+    canvas.after:
+        Color:
+            rgba: 0, 1, 0, 1  # Green color for sensors
+        Line:
+            points: self.sensor1 if hasattr(self, 'sensor1') else [0, 0, 0, 0]
+            width: 1
+        Line:
+            points: self.sensor2 if hasattr(self, 'sensor2') else [0, 0, 0, 0]
+            width: 1
+        Line:
+            points: self.sensor3 if hasattr(self, 'sensor3') else [0, 0, 0, 0]
+            width: 1
+            
+    # Sensor labels
+    Label:
+        text: str(self.parent.signal1) if hasattr(self.parent, 'signal1') else "0.00"
+        pos: self.parent.sensor1[0] + 10, self.parent.sensor1[1] + 10 if hasattr(self.parent, 'sensor1') else (0, 0)
+        size: 30, 20
+        color: 1, 0, 0, 1
+        
+    Label:
+        text: str(self.parent.signal2) if hasattr(self.parent, 'signal2') else "0.00"
+        pos: self.parent.sensor2[0] + 10, self.parent.sensor2[1] + 10 if hasattr(self.parent, 'sensor2') else (0, 0)
+        size: 30, 20
+        color: 1, 0, 0, 1
+        
+    Label:
+        text: str(self.parent.signal3) if hasattr(self.parent, 'signal3') else "0.00"
+        pos: self.parent.sensor3[0] + 10, self.parent.sensor3[1] + 10 if hasattr(self.parent, 'sensor3') else (0, 0)
+        size: 30, 20
+        color: 1, 0, 0, 1
+
+<Ball1>:
+    size: 10,10
+    canvas:
+        Color:
+            rgba: 0.48,0.97,0.74,0.3
+        Ellipse:
+            pos: self.pos
+            size: self.size
+<Ball2>:
+    size: 10,10
+    canvas:
+        Color:
+            rgba: 0.48,0.97,0.74,0.3
+        Ellipse:
+            pos: self.pos
+            size: self.size
+
+<Ball3>:
+    size: 10,10
+    canvas:
+        Color:
+            rgba: 0.48,0.97,0.74,0.3
+        Ellipse:
+            pos: self.pos
+            size: self.size
+
+<Game>:
+    car: game_car
+    ball1: game_ball1
+    ball2: game_ball2
+    ball3: game_ball3
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: 1429, 660
+            source: "./images/citymap.png"
+
+    Car:
+        id: game_car
+        center: self.parent.center
+    Ball1:
+        id: game_ball1
+        center: self.parent.center
+    Ball2:
+        id: game_ball2
+        center: self.parent.center
+    Ball3:
+        id: game_ball3
+        center: self.parent.center
